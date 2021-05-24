@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form id="player"> 
+  <label>Welcome to the Game, please type your choice below:</label>
+  <input type="text" value="rock" ><br>
+</form>
+<p>Please click on Play to see Computer's choice</p>
+<button onclick="myfunction()">Play</button> 
+<p id="computer"></p>
+<p id="result"></p>
+
+  <script>
+    function computerPlay(){
+    var option=["rock","paper","scissor"];
+    const random=option[Math.floor(Math.random()*option.length)];
+    document.getElementById("computer").innerHTML=random;
+    return random;
+    }
+    
+    function playing(playerSelection,computerSelection){
+      var palyserSelection_caseins=playerSelection.toLowerCase();
+      
+      if(palyserSelection_caseins===computerSelection){
+       result="Please try again";
+      }else if(palyserSelection_caseins==="rock"&&computerSelection==="paper"){
+       result="You lose, Paper beats Rock";
+       alert(result);
+      }else if (palyserSelection_caseins==="scissor"&&computerSelection==="paper"){
+        result="You win, Scissor beats Paper";
+      }else if(palyserSelection_caseins==="paper"&&computerSelection==="scissor"){
+        result="You lose, Scissor beats Paper";
+      }else if (palyserSelection_caseins==="paper"&&computerSelection==="rock"){
+        result="You win, Paper beats Rock";
+      }else if(palyserSelection_caseins==="scissor"&&computerSelection==="rock"){
+        result="You lose, Rock beats Scissor";
+      }else if(palyserSelection_caseins==="rock"&&computerSelection==="scissor"){
+        result="You win, Rock beats Scissor";
+      }
+      document.getElementById("result").innerHTML = result;
+    }
+    function myfunction(){
+    var playerinput= document.getElementById("player").elements[0].value;
+    playing(playerinput,computerPlay());
+    }
+    
+  </script>
+</body>
+</html>
