@@ -2,16 +2,34 @@
 <html>
 <body>
 
-<form id="player"> 
-  <label>Welcome to the Game, please type your choice below:</label>
+<form id="player1"> 
+  <label id="number_games">Welcome to the Game! How many times of games would you like to play?</label>
+  <input type="number" value=1><br>
+</form>
+<form id="player2">
+  <label>Please type your choice below:</label>
   <input type="text" value="rock" ><br>
 </form>
-<p>Please click on Play to see Computer's choice</p>
-<button onclick="myfunction()">Play</button> 
-<p id="computer"></p>
-<p id="result"></p>
+<p>Start the Game</p>
+<button onclick="game()">RUN</button>
+<div>Computer's choice:<div id="computer"></div></div>
+<div>Result:<p id="result"></p> </div>
+<div id="fix1">Game Number<div id="count"></div> </div>
+<div id="fix2">Recurring Score:<p id="current_score"></p></div>
 
+
+ 
   <script>
+    function first_time(){
+      if(document.getElementById("count").innerHTML==document.getElementById("player1").elements[0].value){
+      document.getElementById("fix1").innerHTML=""
+      document.getElementById("fix2").innerHTML=""
+      document.getElementById("result").innerHTML="Game Over";
+      document.getElementById("current_score").innerHTML=0;
+      document.getElementById("count").innerHTML=0;
+      current_points=0;
+      }
+    }
     function computerPlay(){
     var option=["rock","paper","scissor"];
     const random=option[Math.floor(Math.random()*option.length)];
@@ -19,31 +37,61 @@
     return random;
     }
     
+    
+
     function playing(playerSelection,computerSelection){
+
       var palyserSelection_caseins=playerSelection.toLowerCase();
       
       if(palyserSelection_caseins===computerSelection){
-       result="Please try again";
+       result="You got the same result as computer";
+       point=0;
       }else if(palyserSelection_caseins==="rock"&&computerSelection==="paper"){
        result="You lose, Paper beats Rock";
-       alert(result);
+       point=-1;
       }else if (palyserSelection_caseins==="scissor"&&computerSelection==="paper"){
         result="You win, Scissor beats Paper";
+        point=1;
       }else if(palyserSelection_caseins==="paper"&&computerSelection==="scissor"){
         result="You lose, Scissor beats Paper";
+        point=-1;
       }else if (palyserSelection_caseins==="paper"&&computerSelection==="rock"){
         result="You win, Paper beats Rock";
+        point=1;
       }else if(palyserSelection_caseins==="scissor"&&computerSelection==="rock"){
         result="You lose, Rock beats Scissor";
+        point=-1;
       }else if(palyserSelection_caseins==="rock"&&computerSelection==="scissor"){
         result="You win, Rock beats Scissor";
+        point=1;
       }
       document.getElementById("result").innerHTML = result;
+      return(point);
     }
     function myfunction(){
-    var playerinput= document.getElementById("player").elements[0].value;
-    playing(playerinput,computerPlay());
+    
+    var playerinput= document.getElementById("player2").elements[0].value;
+    var point=playing(playerinput,computerPlay());
+    return (point);
     }
+    
+    
+    
+    var i=0;
+    var current_points=0;
+    function game(){
+      let number_of_games=document.getElementById("player1").elements[0].value;
+      current_points=current_points+myfunction();
+      document.getElementById("current_score").innerHTML=current_points;
+      i=i+1;
+      if(i>number_of_games){
+        first_time()
+      }else{
+        document.getElementById("count").innerHTML=i;;
+      }
+      
+      }
+  
     
   </script>
 </body>
